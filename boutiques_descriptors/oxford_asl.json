@@ -1,28 +1,28 @@
 {
     "tool-version": "6.0.5",
-    "name": "Melodic",
+    "name": "Oxford_asl_single_subject",
     "author": "Oxford Centre for Functional MRI of the Brain (FMRIB)",
-    "description": "Oxford_asl for BIDS)",
-    "command-line": "mkdir -p [OUTDIR]; ./run_oxford.sh [INPUT_PATH] [SPATIAL_FLAG] [WP_FLAG] [MC_FLAG] [ARTOFF_FLAG] [FIXBOLUS_FLAG] [IAF] [IBF] [TIS] [CASL_FLAG] [BOLUS] [BAT] [T1] [T1B] [SLICEDT] [SLICEBAND] [RPT] [MNI_REG_FLAG] [TR_CALIB] [PV_CORR]",
+    "description": "Oxford_asl for BIDS subject",
+    "command-line": "mkdir -p [OUTDIR]; ./run_oxford.sh [BIDS_DIR] [SPATIAL_FLAG] [WP_FLAG] [MC_FLAG] [ARTOFF_FLAG] [FIXBOLUS_FLAG] [IAF] [IBF] [TIS] [CASL_FLAG] [BOLUS] [BAT] [T1] [T1B] [SLICEDT] [SLICEBAND] [RPT] [MNI_REG_FLAG] [TR_CALIB] [PV_CORR]",
     "schema-version": "0.5",
     "container-image": {
-        "image": "mcin/docker-fsl:latest",
+        "image": "mcin/fsl:6.0.5",
         "index": "docker://",
         "type": "docker"
     },
     "inputs": [
         {
-            "description": "Input path (e.g. path to BIDS data)",
-            "id": "input_path",
-            "name": "Input files",
+            "description": "BIDS dataset input file",
+            "id": "bids_dir",
+            "name": "bids_dir",
             "optional": false,
             "type": "File",
-            "value-key": "[INPUT_PATH]"
+            "value-key": "[BIDS_DIR]"
         },
         {
             "id": "spatial",
             "name": "Spatial processing",
-            "description": "Use spatial regularisation. This option is enable by default and is highly recommended",
+            "description": "Use spatial regularisation. This option is highly recommended.",
             "optional": false,
             "default-value": "on",
             "value-choices": [
@@ -36,7 +36,6 @@
         {
             "id": "white_paper",
             "name": "White paper mode",
-            "description": "Use white paper mode for analysis",
             "optional": false,
             "default-value": 0,
             "value-choices": [
@@ -50,7 +49,6 @@
         {
             "id": "motion_correction",
             "name": " Motion correction",
-            "description": "apply motion correction",
             "optional": false,
             "default-value": 0,
             "value-choices": [
@@ -64,7 +62,7 @@
         {
             "id": "artoff",
             "name": " Arterial suppression",
-            "description": "Arterial suppression (vascular crushing) was used, same as artoff",
+            "description": "Arterial suppression (vascular crushing) was used.",
             "optional": false,
             "default-value": 0,
             "value-choices": [
@@ -78,7 +76,7 @@
         {
             "id": "fixbolus",
             "name": "Fix bolus duration",
-            "description": "Turn off automatic estimation of bolus duration as it is fixed, e.g. by QUIPSSII or CASL",
+            "description": "Turn off automatic estimation of bolus duration as it is fixed, e.g. by QUIPSSII or CASL.",
             "optional": false,
             "default-value": 0,
             "value-choices": [
@@ -92,7 +90,6 @@
         {
             "id": "iaf",
             "name": "Input ASL format",
-            "description": "Input ASL format ",
             "optional": false,
             "default-value": "diff",
             "value-choices": [
@@ -107,7 +104,6 @@
         {
             "id": "ibf",
             "name": "Input block format",
-            "description": " Input block format ",
             "optional": false,
             "value-choices": [
                 "tis",
@@ -120,7 +116,7 @@
         {
             "id": "tis",
             "name": "Inversion time",
-            "description": "comma separated list of inflow times in seconds, e.g. --tis 0.2,0.4,0.6",
+            "description": "Comma separated list of inflow times in seconds (e.g. --tis 0.2,0.4,0.6).",
             "optional": false,
             "type": "String",
             "value-key": "[TIS]",
@@ -129,7 +125,7 @@
         {
             "id": "casl",
             "name": "CASL",
-            "description": "ASL acquisition is pseudo cASL (pcASL) rather than pASL",
+            "description": "ASL acquisition is pseudo cASL (pcASL) rather than pASL.",
             "optional": false,
             "default-value": 0,
             "value-choices": [
@@ -142,8 +138,8 @@
         },
         {
             "id": "bolus",
-            "name": "Duration of the ASL labeling bolus in seconds ",
-            "description": "Duration of the ASL labeling bolus in seconds - {default: 1}",
+            "name": "Bolus",
+            "description": "Duration of the ASL labeling bolus in seconds.",
             "optional": true,
             "default-value": 1,
             "type": "Number",
@@ -152,7 +148,7 @@
         },
         {
             "id": "bat",
-            "name": "Bolus arrival time ",
+            "name": "Bolus arrival time",
             "description": "Bolus arrival time in seconds - {Enter: 0.7 (pASL); 1.3 (cASL)}",
             "optional": false,
             "type": "Number",
@@ -161,8 +157,7 @@
         },
         {
             "id": "t1",
-            "name": "Tissue T1 value ",
-            "description": "Tissue T1 value- {default: 1.3}",
+            "name": "Tissue T1 value",
             "default-value": 1.3,
             "optional": true,
             "type": "Number",
@@ -171,8 +166,7 @@
         },
         {
             "id": "t1b",
-            "name": "Blood T1 ",
-            "description": "Blood T1 value - {default: 1.65}",
+            "name": "Blood T1 value",
             "optional": true,
             "default-value": 1.65,
             "type": "Number",
@@ -181,8 +175,8 @@
         },
         {
             "id": "slicedt",
-            "name": "Timing difference  ",
-            "description": "Timing difference between slices in seconds - {default: 0}",
+            "name": "Timing difference",
+            "description": "Timing difference between slices in seconds.",
             "optional": true,
             "default-value": 0,
             "type": "Number",
@@ -191,8 +185,8 @@
         },
         {
             "id": "sliceband",
-            "name": " Number of slices ",
-            "description": "Number of slices per band in a multi-band setup ",
+            "name": "Number of slices",
+            "description": "Number of slices per band in a multi-band setup.",
             "optional": true,
             "default-value": 0,
             "type": "Number",
@@ -201,8 +195,8 @@
         },
         {
             "id": "rpts",
-            "name": " Number of repeated measurements  ",
-            "description": "Number of repeated measurements for each TI/PLD in the TIs list, for use where the number of repeated measurements varies at each TI. ",
+            "name": " Number of repeated measurements",
+            "description": "Number of repeated measurements for each TI/PLD in the TIs list, for use where the number of repeated measurements varies at each TI.",
             "optional": true,
             "default-value": 0,
             "type": "Number",
@@ -211,8 +205,7 @@
         },
         {
             "id": "mni_reg_flag",
-            "name": "MNI registration",
-            "description": "Registration to MNI space",
+            "name": "Registration to MNI space",
             "optional": true,
             "default-value": 0,
             "value-choices": [
@@ -225,8 +218,8 @@
         },
         {
             "id": "tr",
-            "name": "TR of calibration ",
-            "description": "Repetition time of calibration in seconds - {default: 3.2 s}",
+            "name": "TR of calibration",
+            "description": "Repetition time of calibration in seconds - {default: 3.2s}",
             "optional": true,
             "default-value": 3.2,
             "type": "Number",
@@ -236,7 +229,6 @@
         {
             "id": "pvcorr",
             "name": "Volume correction",
-            "description": "Do partial volume correction",
             "optional": true,
             "default-value": 0,
             "value-choices": [
@@ -251,7 +243,7 @@
     "groups": [
         {
             "id": "main_options",
-            "name": "Main Options",
+            "name": "Main options",
             "members": [
                 "spatial",
                 "white_paper",
@@ -260,7 +252,7 @@
         },
         {
             "id": "acquisition_specific",
-            "name": "Acquisition Specific",
+            "name": "Acquisition specific options",
             "members": [
                 "iaf",
                 "ibf",
@@ -277,7 +269,7 @@
         },
         {
             "id": "structural_image",
-            "name": "Structural Image",
+            "name": "Structural image",
             "members": [
                 "iaf",
                 "ibf",
@@ -297,7 +289,7 @@
         },
         {
             "id": "kinetic_analysis",
-            "name": "Kinetic Analysis",
+            "name": "Kinetic analysis",
             "members": [
                 "artoff",
                 "fixbolus"
@@ -305,7 +297,7 @@
         },
         {
             "id": "partial_volume_correction",
-            "name": "Partial Volume Correction",
+            "name": "Partial volume correction",
             "members": [
                 "pvcorr"
             ]
@@ -318,7 +310,7 @@
             "id": "output",
             "value-key": "[OUTDIR]",
             "optional": true,
-            "path-template": "[INPUT_PATH]_out",
+            "path-template": "[BIDS_DIR]_out",
             "name": "Output folder"
         }
     ],
@@ -334,8 +326,21 @@
     "custom": {
         "cbrain:author": [
             "Safa Sanami <s.sanami70@gmail.com>",
-            "Darius Valevicius <darius.valevicius@mail.mcgill.ca>"
+            "Darius Valevicius <darius.valevicius@mail.mcgill.ca>",
+            "Natacha Beck <nbeck@mcin.ca>"
         ],
-        "cbrain:readonly-input-files": true
+        "cbrain:readonly-input-files": true,
+        "cbrain:integrator_modules": {
+            "BoutiquesFileTypeVerifier": {
+                "bids_dir": [ "BidsSubject" ]
+            },
+            "BoutiquesFileNameMatcher": {
+                "bids_dir": "^sub-[a-zA-Z0-9_]+$"
+            },
+            "BoutiquesOutputFileTypeSetter": {
+                "output_dir": "OxfordAslOutput"
+            },
+            "BoutiquesBidsSingleSubjectMaker": "bids_dir"
+        }
     }
 }
