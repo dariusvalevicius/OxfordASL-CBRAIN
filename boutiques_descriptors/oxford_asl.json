@@ -3,12 +3,12 @@
     "name": "Oxford_asl_single_subject",
     "author": "Oxford Centre for Functional MRI of the Brain (FMRIB)",
     "description": "Oxford_asl for BIDS subject",
-    "command-line": "mkdir -p [OUTDIR]; ./run_oxford.sh [BIDS_DIR] [SPATIAL_FLAG] [WP_FLAG] [MC_FLAG] [ARTOFF_FLAG] [FIXBOLUS_FLAG] [IAF] [IBF] [TIS] [CASL_FLAG] [BOLUS] [BAT] [T1] [T1B] [SLICEDT] [SLICEBAND] [RPT] [MNI_REG_FLAG] [TR_CALIB] [PV_CORR]",
+    "command-line": "bids_ox_asl [BIDS_DIR] [OUTPUT_DIR] [SPATIAL_FLAG] [WP_FLAG] [MC_FLAG] [ARTOFF_FLAG] [FIXBOLUS_FLAG] [IAF] [IBF] [TIS] [CASL_FLAG] [BOLUS] [BAT] [T1] [T1B] [SLICEDT] [SLICEBAND] [RPT] [MNI_REG_FLAG] [TR_CALIB] [PV_CORR]",
     "schema-version": "0.5",
     "container-image": {
         "image": "mcin/fsl:6.0.5",
         "index": "docker://",
-        "type": "docker"
+        "type": "singularity"
     },
     "inputs": [
         {
@@ -18,6 +18,14 @@
             "optional": false,
             "type": "File",
             "value-key": "[BIDS_DIR]"
+        },
+        {
+            "description": "Oxford_asl output directory.",
+            "id": "output_dir",
+            "name": "output_dir",
+            "optional": false,
+            "type": "String",
+            "value-key": "[OUTPUT_DIR]"
         },
         {
             "id": "spatial",
@@ -264,19 +272,6 @@
                 "t1",
                 "t1b",
                 "rpts",
-                "sliceband"
-            ]
-        },
-        {
-            "id": "structural_image",
-            "name": "Structural image",
-            "members": [
-                "iaf",
-                "ibf",
-                "tis",
-                "casl",
-                "bolus",
-                "slicedt",
                 "sliceband"
             ]
         },
