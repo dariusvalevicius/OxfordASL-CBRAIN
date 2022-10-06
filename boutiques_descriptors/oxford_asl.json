@@ -3,7 +3,7 @@
     "name": "Oxford_asl_single_subject",
     "author": "Oxford Centre for Functional MRI of the Brain (FMRIB)",
     "description": "Oxford_asl for BIDS subject",
-    "command-line": "bids_ox_asl [BIDS_DIR] [OUTPUT_DIR] [SPATIAL_FLAG] [WP_FLAG] [MC_FLAG] [ARTOFF_FLAG] [FIXBOLUS_FLAG] [IAF] [IBF] [TIS] [CASL_FLAG] [BOLUS] [BAT] [T1] [T1B] [SLICEDT] [SLICEBAND] [RPT] [MNI_REG_FLAG] [TR_CALIB] [PV_CORR]",
+    "command-line": "bids_ox_asl [BIDS_DIR] [NAME_OUTDIR] [SPATIAL_FLAG] [WP_FLAG] [MC_FLAG] [ARTOFF_FLAG] [FIXBOLUS_FLAG] [IAF] [IBF] [TIS] [CASL_FLAG] [BOLUS] [BAT] [T1] [T1B] [SLICEDT] [SLICEBAND] [RPT] [MNI_REG_FLAG] [TR_CALIB] [PV_CORR]",
     "schema-version": "0.5",
     "container-image": {
         "image": "mcin/fsl:6.0.5",
@@ -25,7 +25,7 @@
             "name": "output_dir",
             "optional": false,
             "type": "String",
-            "value-key": "[OUTPUT_DIR]"
+            "value-key": "[NAME_OUTDIR]"
         },
         {
             "id": "spatial",
@@ -300,13 +300,12 @@
     ],
     "output-files": [
         {
-            "description": "A folder containing the output files and a copy of configs.",
+            "name": "Output folder",
+            "id": "oxford_output",
+            "description": "A folder containing the output files.",
+            "optional": false,
             "list": false,
-            "id": "output",
-            "value-key": "[OUTDIR]",
-            "optional": true,
-            "path-template": "[BIDS_DIR]_out",
-            "name": "Output folder"
+            "path-template": "[NAME_OUTDIR]"
         }
     ],
     "tags": {
